@@ -22,9 +22,11 @@ Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
 
 Route::group(['middleware' => ['auth:api']], function () {
+
     Route::resource('/projects', 'ProjectController');
     Route::resource('/businesses', 'BusinessController');
     Route::resource('/activities', 'ActivityController');
     Route::post('/subscribe', 'GeneralController@subscribe');
     Route::get('/users/{id}/events', 'GeneralController@events');
+    Route::resource('/users', 'UserController');
 });

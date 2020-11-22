@@ -13,11 +13,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $http = new Client();
-        $response = $http->post('https://api.wecreation.be/oauth/token', [
+        $response = $http->post('http://ianapi.test/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => 'GmQ5Byhvd1icwNUpWW7itbghgFZovyIDuGlBftDk',
+                'client_secret' => 'OSm0MxMh2d1ia9lKwa8ghTAdGiZObDRzwpB8pM7D',
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',

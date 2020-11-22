@@ -17,7 +17,7 @@ class AuthController extends Controller
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => 'OSm0MxMh2d1ia9lKwa8ghTAdGiZObDRzwpB8pM7D',
+                'client_secret' => 'zPt9YadmWyH322jMWU4qhIom1wDkyzdlEj36G8JY',
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',

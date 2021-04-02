@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $http = new Client();
-        $response = $http->post('https://wecreation.be/oauth/token', [
+        $response = $http->post('https://api.wecreation.be/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',

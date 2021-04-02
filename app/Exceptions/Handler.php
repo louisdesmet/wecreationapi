@@ -50,23 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-
-        if($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException ||
-            $exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException ||
-            $exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
-            $error = [
-                'message'=> $exception->getMessage(),
-                'type'   => \get_class($exception),
-                'url'    => $request->url(),
-                'method' => $request->method(),
-                'data'   => $request->all(),
-            ];
-
-            $message = $exception->getStatusCode().' : ' . $error['url'] . "\n" . \json_encode($error, JSON_PRETTY_PRINT);
-
-            \Log::debug($message);
-        }
         return parent::render($request, $exception);
-
     }
 }

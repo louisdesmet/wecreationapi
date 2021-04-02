@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $http = new Client();
+       /* $http = new Client();
         $response = $http->post('https://wecreation.be/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
@@ -27,7 +27,8 @@ class AuthController extends Controller
         return [
             "token" => json_decode((string)$response->getBody(), true), 
             "user" => User::where('email', $request->email)->first()
-        ];
+        ];*/
+        return 'yo';
     }
 
     public function register(Request $request) {

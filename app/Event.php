@@ -11,6 +11,6 @@ class Event extends Model
     }
 
     public function users() {
-        return $this->belongsToMany('App\User')->withPivot('hours');
+        return $this->belongsToMany('App\User')->withPivot('id', 'hours', 'accepted', 'present');
     }
 }

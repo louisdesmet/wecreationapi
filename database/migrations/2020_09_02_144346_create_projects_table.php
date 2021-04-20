@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type', ['Uitvoerende kunst', 'Audiovisueel', 'Sociaal', 'Cultureel', 'Wetenschappelijk', 'Zorg', 'Overige']);
             $table->text('description');
             $table->integer('credits');
             $table->unsignedBigInteger('leader_id');

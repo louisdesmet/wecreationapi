@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -36,7 +36,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = new Project;
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->credits = $request->input('credits');
+        $project->leader_id = $request->input('leader');
+        $project->save();
     }
 
     /**
@@ -70,7 +75,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::find($id);
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->credits = $request->input('credits');
+        $project->leader_id = $request->input('leader');
+        $project->save();
     }
 
     /**

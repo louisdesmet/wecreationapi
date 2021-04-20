@@ -24,9 +24,12 @@ Route::post('/register', 'AuthController@register');
 Route::group(['middleware' => ['auth:api']], function () {
 
     Route::resource('/projects', 'ProjectController');
+    Route::resource('/events', 'EventController');
     Route::resource('/businesses', 'BusinessController');
     Route::resource('/activities', 'ActivityController');
     Route::post('/subscribe', 'GeneralController@subscribe');
+    Route::post('/accept', 'GeneralController@accept');
+    Route::post('/verify', 'GeneralController@verify');
     Route::get('/users/{id}/events', 'GeneralController@events');
     Route::resource('/users', 'UserController');
 });

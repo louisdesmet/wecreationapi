@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Http\Resources\User as UserRes;
+use App\Event;
+use App\Http\Resources\Event as EventRes;
 
-class UserController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserRes::collection(User::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return EventRes::collection(Event::with('project')->get());
     }
 
     /**
@@ -36,29 +26,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $event = new Event;
+        $event->name = $request->input('name');
+        $event->location = $request->input('location');
+        $event->date = $request->input('date');
+        $event->credits = $request->input('credits');
+        $event->project_id = $request->input('project');
+        $event->save();
     }
 
     /**
@@ -70,9 +44,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->email_verified_at = $request->input('email_verified_at');
-        $user->save();
+        $event = Event::find($id);
+        $event->name = $request->input('name');
+        $event->location = $request->input('location');
+        $event->date = $request->input('date');
+        $event->credits = $request->input('credits');
+        $event->save(); 
     }
 
     /**

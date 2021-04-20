@@ -21,7 +21,7 @@ class Event extends JsonResource
             'date' => $this->date,
             'credits' => $this->credits,
             'users' => User::collection($this->whenLoaded('users')),
-
+            'project' => new Project($this->whenLoaded('project'))
         ];
     }
 }

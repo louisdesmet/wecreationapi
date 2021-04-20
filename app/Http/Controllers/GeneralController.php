@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\User;
+use App\EventUser;
 
 class GeneralController extends Controller
 {
@@ -15,13 +16,24 @@ class GeneralController extends Controller
         $event->users()->attach([$request->user_id => ['hours' => $request->hours]]);
     }
 
-    public function events($id)
+    public function accept(Request $request)
     {
-        
-        $user = User::find($id);
-        return $user->events()->get();
-
+        $eventUser = EventUser::find($request->id);
+        $eventUser->accepted = 1;
+        $eventUser->save();
     }
 
+    public function verify(Request $request)
+    {
+        $eventUser = EventUser::find($request->id);
+        $eventUser->present = 1;
+        $eventUser->save();
+    }
+
+    public function events($id)
+    {       
+        $user = User::find($id);
+        return $user->events()->with('users')->get();
+    }
 
 }

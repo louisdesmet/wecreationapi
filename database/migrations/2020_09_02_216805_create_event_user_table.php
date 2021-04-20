@@ -20,6 +20,8 @@ class CreateEventUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('hours');
+            $table->boolean('accepted')->default(0);
+            $table->boolean('present')->default(0);
             $table->timestamps();
         });
     }

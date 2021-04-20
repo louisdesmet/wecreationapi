@@ -36,7 +36,13 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $activity = new Activity;
+        $activity->name = $request->input('name');
+        $activity->location = $request->input('location');
+        $activity->date = $request->input('date');
+        $activity->lat = $request->input('lat');
+        $activity->lng = $request->input('lng');
+        $activity->save();
     }
 
     /**
@@ -70,7 +76,13 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $activity = Activity::find($id);
+        $activity->name = $request->input('name');
+        $activity->location = $request->input('location');
+        $activity->date = $request->input('date');
+        $activity->lat = $request->input('lat');
+        $activity->lng = $request->input('lng');
+        $activity->save();
     }
 
     /**

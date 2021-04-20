@@ -18,9 +18,22 @@ class User extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'email_verified_at' => $this->email_verified_at,
             'credits' => $this->credits,
             'hours' => $this->whenPivotLoaded('event_user', function () {
                 return $this->pivot->hours;
+            }),
+            'accepted' => $this->whenPivotLoaded('event_user', function () {
+                return $this->pivot->accepted;
+            }),
+            'present' => $this->whenPivotLoaded('event_user', function () {
+                return $this->pivot->present;
+            }),
+            'hours' => $this->whenPivotLoaded('event_user', function () {
+                return $this->pivot->hours;
+            }),
+            'event_user_id' => $this->whenPivotLoaded('event_user', function () {
+                return $this->pivot->id;
             }),
         ];
     }

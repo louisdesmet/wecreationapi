@@ -36,7 +36,15 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $business = new Business;
+        $business->name = $request->input('name');
+        $business->type = $request->input('type');
+        $business->description = $request->input('description');
+        $business->location = $request->input('location');
+        $business->lat = $request->input('lat');
+        $business->lng = $request->input('lng');
+        $business->credits = $request->input('credits');
+        $business->save();
     }
 
     /**
@@ -70,7 +78,15 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $business = Business::find($id);
+        $business->name = $request->input('name');
+        $business->type = $request->input('type');
+        $business->description = $request->input('description');
+        $business->location = $request->input('location');
+        $business->lat = $request->input('lat');
+        $business->lng = $request->input('lng');
+        $business->credits = $request->input('credits');
+        $business->save();
     }
 
     /**

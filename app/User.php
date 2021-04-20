@@ -39,6 +39,6 @@ class User extends Authenticatable
     ];
 
     public function events() {
-        return $this->belongsToMany('App\Event')->withPivot('hours');
+        return $this->belongsToMany('App\Event')->withPivot('id', 'hours', 'accepted', 'present');
     }
 }

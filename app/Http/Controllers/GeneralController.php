@@ -36,4 +36,14 @@ class GeneralController extends Controller
         return $user->events()->with('users')->get();
     }
 
+    public function trade(Request $request)
+    {   
+        $user = User::find(intval($request->user_id));
+        $user->credits = $user->credits + $request->amount;
+        $user->save();
+        $loggedUser = User::find($request->loggedUser);
+        $loggedUser->credits = $loggedUser->credits - $request->amount;
+        $loggedUser->save();
+    }
+
 }

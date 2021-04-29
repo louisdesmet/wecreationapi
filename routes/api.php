@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/activities', 'ActivityController');
     Route::post('/subscribe', 'GeneralController@subscribe');
     Route::post('/accept', 'GeneralController@accept');
+    Route::post('/trade', 'GeneralController@trade');
     Route::post('/verify', 'GeneralController@verify');
     Route::get('/users/{id}/events', 'GeneralController@events');
     Route::resource('/users', 'UserController');

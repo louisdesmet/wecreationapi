@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Project;
-use App\Http\Resources\Project as ProjectRes;
+use App\Skill;
+use App\Http\Resources\Skill as SkillRes;
 
-class ProjectController extends Controller
+class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectRes::collection(Project::with('events.users', 'leader', 'events.skills')->get());
+        return SkillRes::collection(Skill::with('events')->get());
     }
 
     /**
@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-       
+        //
     }
 
     /**
@@ -36,12 +36,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = new Project;
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->credits = $request->input('credits');
-        $project->leader_id = $request->input('leader');
-        $project->save();
+
     }
 
     /**
@@ -75,12 +70,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $project = Project::find($id);
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->credits = $request->input('credits');
-        $project->leader_id = $request->input('leader');
-        $project->save();
+
     }
 
     /**

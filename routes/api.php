@@ -27,7 +27,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/events', 'EventController');
     Route::resource('/businesses', 'BusinessController');
     Route::resource('/activities', 'ActivityController');
+    Route::resource('/skills', 'SkillController');
     Route::post('/subscribe', 'GeneralController@subscribe');
+    Route::post('/subscribe-skill', 'GeneralController@subscribeSkill');
     Route::post('/accept', 'GeneralController@accept');
     Route::post('/trade', 'GeneralController@trade');
     Route::post('/verify', 'GeneralController@verify');

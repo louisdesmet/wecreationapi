@@ -49,7 +49,7 @@ class EventController extends Controller
         $event->location = $request->input('location');
         $event->date = $request->input('date');
         $event->credits = $request->input('credits');
-        $event->save(); 
+        $event->save();
     }
 
     /**

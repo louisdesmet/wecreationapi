@@ -20,8 +20,15 @@ class Event extends JsonResource
             'location' => $this->location,
             'date' => $this->date,
             'credits' => $this->credits,
+            'skill' => $this->skill,
             'users' => User::collection($this->whenLoaded('users')),
-            'project' => new Project($this->whenLoaded('project'))
+            'project' => new Project($this->whenLoaded('project')),
+            'hours' => $this->whenPivotLoaded('event_skill', function () {
+                return $this->pivot->hours;
+            }),
+            'user_id' => $this->whenPivotLoaded('event_skill', function () {
+                return $this->pivot->user_id;
+            }),
         ];
     }
 }

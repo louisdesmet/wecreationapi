@@ -24,6 +24,7 @@ Route::post('/register', 'AuthController@register');
 Route::group(['middleware' => ['auth:api']], function () {
 
     Route::resource('/projects', 'ProjectController');
+    Route::resource('/messages', 'MessageController');
     Route::resource('/events', 'EventController');
     Route::resource('/businesses', 'BusinessController');
     Route::resource('/activities', 'ActivityController');

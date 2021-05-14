@@ -20,7 +20,7 @@ class AuthController extends Controller
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => (App::environment('production')) ? ('ObqY0XKQygj6NTjLCZ5ZMdvqhCQCMj28leuHcm3A') : ('tMPzTvaUoEBSzQQ8q31LDFw1JaPE2o4lEIAHw7eh'),
+                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('tMPzTvaUoEBSzQQ8q31LDFw1JaPE2o4lEIAHw7eh'),
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',

@@ -18,8 +18,7 @@ class BusinessSeeder extends Seeder
             'description' => 'Acai Juice Bowl',
             'location' => 'Kortrijksesteenweg 193, 9000 Gent',
             'lat' => 51.039250,
-            'lng' => 3.716680,
-            'credits' => 1
+            'lng' => 3.716680
         ));
 
         Business::create(array(
@@ -28,8 +27,7 @@ class BusinessSeeder extends Seeder
             'description' => 'Drank kaart Shanti Ter waarde van 10 euro',
             'location' => 'Sint-Jacobsnieuwstraat 30, 9000 Gent',
             'lat' => 51.039250,
-            'lng' => 3.729870,
-            'credits' => 1
+            'lng' => 3.729870
         ));
 
         Business::create(array(
@@ -38,8 +36,7 @@ class BusinessSeeder extends Seeder
             'description' => 'Yugen gift bag',
             'location' => 'Lousbergskaai 21, 9000 Gent',
             'lat' => 51.051420,
-            'lng' => 3.736970,
-            'credits' => 5
+            'lng' => 3.736970
         ));
 
         Business::create(array(
@@ -48,8 +45,7 @@ class BusinessSeeder extends Seeder
             'description' => 'Huur zaal',
             'location' => 'Hof ten walle 1, 9000 Gent',
             'lat' => 51.059400,
-            'lng' => 3.715030,
-            'credits' => 10
+            'lng' => 3.715030
         ));
     }
 }

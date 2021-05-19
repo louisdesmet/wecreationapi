@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
         User::create(array(
             'name'              => 'Louis De Smet',
             'email'             => 'info@louis.be',
+            'icon'              => 'faMugHot',
             'password'          => Hash::make('kankerjood'),
             'credits'           => 4,
             'email_verified_at' => '2021-05-04 15:50:45'
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
         User::create(array(
             'name'          => 'Christophe Verote',
             'email'         => 'info@christophe.be',
+            'icon'          => 'faBowlingBall',
             'password'      => Hash::make('kankerjood'),
             'credits'       => 8
         ));
@@ -30,6 +32,7 @@ class UserSeeder extends Seeder
         User::create(array(
             'name'          => 'Jolien De Waele',
             'email'         => 'info@jolien.be',
+            'icon'          => 'faBath',
             'password'      => Hash::make('kankerjood'),
             'credits'       => 2
         ));

@@ -15,7 +15,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        return BusinessRes::collection(Business::all());
+        return BusinessRes::collection(Business::with('products')->get());
     }
 
     /**

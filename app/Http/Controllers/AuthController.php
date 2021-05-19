@@ -16,11 +16,11 @@ class AuthController extends Controller
 
         $environment = App::environment();
         $http = new Client();
-        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://api.test/oauth/token'), [
+        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://wecreationapi.test/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('EbWVr9mhwuMSnGArHYEkp2eyKTKGP7KHIkpplFLp'),
+                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('QRSmRC7tmeqVnMmT9TZpxCqgltERlP45wpgQjosj'),
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',
@@ -34,8 +34,11 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
+        $icons = ['faChess', 'faAddressCard', 'faBeer', 'faBalanceScale', 'faMugHot', 'faBurn', 'faAnchor', 'faBlind', 'faBowlingBall', 
+        'faRadiation', 'faBandAid', 'faBath', 'faBed', 'faBible', 'faBlender', 'faBong', 'faBox'];
         User::create(array(
             'email' => $request->email,
+            'icon' => $icons[rand(0, 16)],
             'password' => Hash::make($request->password),
             'name' => $request->name,
             'credits' => 0   

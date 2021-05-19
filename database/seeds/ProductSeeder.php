@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Product;
 
 class ProductSeeder extends Seeder
 {
@@ -12,39 +13,22 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::create(array(
-            'business_id' => 'Start meeting',
-            'name' => '',
+            'business_id' => 1,
+            'name' => 'bowl',
             'amount' => '10',
             'price' => '5',
         ));
-
-        $event1 = Product::create(array(
-            'name' => 'Infodag',
-            'location' => 'Shantiweg 156, 9000 Gent',
-            'date' => '2020-09-23 06:00:00',
-            'credits' => '10',
-            'project_id' => 1
-        ));
-
-        $event1->users()->attach([1 => ['hours' => 3], 2 => ['hours' => 3], 3 => ['hours' => 1]]);
-        $event1->users()->attach([1 => ['hours' => 2], 2 => ['hours' => 1]]);
-
-        $event2 = Product::create(array(
-            'name' => 'Werkdag',
-            'location' => 'Shantiweg 156, 9000 Gent',
-            'date' => '2020-09-25 06:00:00',
-            'credits' => '15',
-            'project_id' => 1
-        ));
-
-        $event2->users()->attach([1 => ['hours' => 3], 2 => ['hours' => 3], 3 => ['hours' => 1]]);
-
         Product::create(array(
-            'name' => 'Werkdag',
-            'location' => 'Shantiweg 156, 9000 Gent',
-            'date' => '2020-09-29 06:00:00',
-            'credits' => '10',
-            'project_id' => 2
+            'business_id' => 1,
+            'name' => 'dish',
+            'amount' => '10',
+            'price' => '6',
+        ));
+        Product::create(array(
+            'business_id' => 1,
+            'name' => 'super bowl',
+            'amount' => '10',
+            'price' => '7',
         ));
     }
 }

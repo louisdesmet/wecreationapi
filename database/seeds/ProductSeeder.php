@@ -12,14 +12,13 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::create(array(
-            'name' => 'Start meeting',
-            'location' => 'Shantiweg 156, 9000 Gent',
-            'date' => '2020-09-21 06:00:00',
-            'credits' => '0',
-            'project_id' => 1
+            'business_id' => 'Start meeting',
+            'name' => '',
+            'amount' => '10',
+            'price' => '5',
         ));
 
-        $event1 = Event::create(array(
+        $event1 = Product::create(array(
             'name' => 'Infodag',
             'location' => 'Shantiweg 156, 9000 Gent',
             'date' => '2020-09-23 06:00:00',
@@ -30,7 +29,7 @@ class ProductSeeder extends Seeder
         $event1->users()->attach([1 => ['hours' => 3], 2 => ['hours' => 3], 3 => ['hours' => 1]]);
         $event1->users()->attach([1 => ['hours' => 2], 2 => ['hours' => 1]]);
 
-        $event2 = Event::create(array(
+        $event2 = Product::create(array(
             'name' => 'Werkdag',
             'location' => 'Shantiweg 156, 9000 Gent',
             'date' => '2020-09-25 06:00:00',
@@ -40,7 +39,7 @@ class ProductSeeder extends Seeder
 
         $event2->users()->attach([1 => ['hours' => 3], 2 => ['hours' => 3], 3 => ['hours' => 1]]);
 
-        Event::create(array(
+        Product::create(array(
             'name' => 'Werkdag',
             'location' => 'Shantiweg 156, 9000 Gent',
             'date' => '2020-09-29 06:00:00',

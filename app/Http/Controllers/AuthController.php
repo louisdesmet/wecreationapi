@@ -16,11 +16,11 @@ class AuthController extends Controller
 
         $environment = App::environment();
         $http = new Client();
-        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://wecreationapi.test/oauth/token'), [
+        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://api.test/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('QRSmRC7tmeqVnMmT9TZpxCqgltERlP45wpgQjosj'),
+                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('jnpTVKmGNBdwX9nHS1Jj4nAXM9MleRSzoiCq6LgP'),
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',

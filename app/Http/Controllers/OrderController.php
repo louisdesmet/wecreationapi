@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\Product;
 use App\Http\Resources\Order as OrderRes;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -15,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return OrderRes::collection(Order::with('product', 'user')->get());
+        return OrderRes::collection(Order::with('product.business', 'user')->get());
     }
 
     /**
@@ -36,10 +38,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = new Order;
-        $order->product_id = $request->input('product');
-        $order->user_id = $request->input('user');
-        $order->save();
+        $product = Product::find($request->input('product'));
+
+        if($product->amount > 0) {
+            $order = new Order;
+            $order->product_id = $request->input('product');
+            $order->user_id = $request->input('user');
+            $order->save();    
+            $product->amount -= 1;
+            $product->save(); 
+            return $order;
+        }
+
+        
+
+     
     }
 
     /**

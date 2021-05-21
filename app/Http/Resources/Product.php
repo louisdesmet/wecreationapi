@@ -19,6 +19,7 @@ class Product extends JsonResource
             'name' => $this->name,
             'amount' => $this->amount,
             'price' => $this->price,
+            'business' => new Business($this->whenLoaded('business'))
         ];
     }
 }

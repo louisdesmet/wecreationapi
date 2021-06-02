@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Order;
 use App\User;
 use App\EventUser;
 use App\EventSkill;
@@ -39,6 +40,12 @@ class GeneralController extends Controller
         $eventUser = EventUser::find($request->id);
         $eventUser->present = 1;
         $eventUser->save();
+        
+        $event = Event::find($eventUser->event_id);       
+
+        $user = User::find($eventUser->user_id);
+        $user->credits += $eventUser->hours;
+        $user->save();
     }
 
     public function events($id)
@@ -55,6 +62,13 @@ class GeneralController extends Controller
         $loggedUser = User::find($request->loggedUser);
         $loggedUser->credits = $loggedUser->credits - $request->amount;
         $loggedUser->save();
+    }
+
+    public function verifyOrder(Request $request)
+    {   
+        $order = Order::find(intval($request->order));
+        $order->accepted = 1;
+        $order->save();
     }
 
 }

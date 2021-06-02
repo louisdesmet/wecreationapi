@@ -15,7 +15,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        return SkillRes::collection(Skill::with('events')->get());
+        return SkillRes::collection(Skill::with('events.project')->get());
     }
 
     /**

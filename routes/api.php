@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/accept', 'GeneralController@accept');
     Route::post('/trade', 'GeneralController@trade');
     Route::post('/verify', 'GeneralController@verify');
+    Route::post('/verify-order', 'GeneralController@verifyOrder');
     Route::get('/users/{id}/events', 'GeneralController@events');
     Route::resource('/users', 'UserController');
 });

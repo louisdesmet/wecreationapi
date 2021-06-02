@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Http\Resources\User as UserRes;
 use Auth;
 use Illuminate\Support\Facades\App;
 
@@ -16,11 +17,11 @@ class AuthController extends Controller
 
         $environment = App::environment();
         $http = new Client();
-        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://wecreationapi.test/oauth/token'), [
+        $response = $http->post((App::environment('production')) ? ('https://api.wecreation.be/oauth/token') : ('http://api.test/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('QRSmRC7tmeqVnMmT9TZpxCqgltERlP45wpgQjosj'),
+                'client_secret' => (App::environment('production')) ? ('t3hMX4dW7DyP2QNtkOCCYe5S3TciUjj1XT2vSSyd') : ('zWQT7PYMbK0UPYqYuq6BQ70lButg7uqDaMVlAPTD'),
                 'username' => $request->email,
                 'password' => $request->password,
                 'scope' => '',
@@ -28,8 +29,8 @@ class AuthController extends Controller
         ]);
         
         return [
-            "token" => json_decode((string)$response->getBody(), true), 
-            "user" => User::where('email', $request->email)->first()
+            "token" => json_decode((string)$response->getBody(), true),
+            "user" => UserRes::collection(User::with('roles')->where('email', $request->email)->get())
         ];
     }
 

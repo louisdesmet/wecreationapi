@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Order extends JsonResource
+class Role extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class Order extends JsonResource
     {
         return [
             'id' => $this->id,
-            'accepted' => $this->accepted,
-            'product' => new Product($this->whenLoaded('product')),
-            'user' => new User($this->whenLoaded('user'))
+            'name' => $this->name,
+            'business_id' => $this->whenPivotLoaded('role_user', function () {
+                return $this->pivot->business_id;
+            }),
         ];
     }
 }

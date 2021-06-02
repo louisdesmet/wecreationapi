@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function events() {
         return $this->belongsToMany('App\Event')->withPivot('id', 'hours', 'accepted', 'present');
     }
+
+    public function roles() {
+        return $this->belongsToMany('App\Role')->withPivot('business_id');
+    }
 }

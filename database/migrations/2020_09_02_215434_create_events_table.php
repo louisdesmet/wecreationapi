@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
             $table->string('name');
+            $table->string('description');
             $table->string('location');
             $table->dateTime('date');
             $table->string('skill')->nullable();

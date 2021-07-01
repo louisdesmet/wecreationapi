@@ -13,9 +13,11 @@ class EventSeeder extends Seeder
     public function run()
     {
         Event::create(array(
-            'name' => 'Start meeting',
+            'name' => 'Kennismaking',
             'description' => 'we ontmoeten elkaar op de startmeeting',
             'location' => 'Shantiweg 156, 9000 Gent',
+            'lat' => 51.0350,
+            'lng' => 3.71680,
             'date' => '2020-09-21 06:00:00',
             'credits' => '0',
             'project_id' => 1
@@ -25,6 +27,8 @@ class EventSeeder extends Seeder
             'name' => 'Infodag',
             'description' => 'we ontmoeten elkaar op de infodag',
             'location' => 'Shantiweg 156, 9000 Gent',
+            'lat' => 51.039256,
+            'lng' => 3.715680,
             'date' => '2020-09-23 06:00:00',
             'credits' => '10',
             'project_id' => 1
@@ -37,6 +41,8 @@ class EventSeeder extends Seeder
             'name' => 'Werkdag',
             'description' => 'we ontmoeten elkaar op de werkdag',
             'location' => 'Shantiweg 156, 9000 Gent',
+            'lat' => 51.088250,
+            'lng' => 3.765780,
             'date' => '2020-09-25 06:00:00',
             'credits' => '15',
             'project_id' => 1
@@ -48,6 +54,8 @@ class EventSeeder extends Seeder
             'name' => 'Werkdag',
             'description' => 'we ontmoeten elkaar op de werkdag',
             'location' => 'Shantiweg 156, 9000 Gent',
+            'lat' => 51.03660,
+            'lng' => 3.716680,
             'date' => '2020-09-29 06:00:00',
             'credits' => '10',
             'project_id' => 2

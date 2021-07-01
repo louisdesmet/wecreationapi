@@ -22,6 +22,8 @@ class Event extends JsonResource
             'date' => $this->date,
             'credits' => $this->credits,
             'skill' => $this->skill,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
             'users' => User::collection($this->whenLoaded('users')),
             'project' => new Project($this->whenLoaded('project')),
             'hours' => $this->whenPivotLoaded('event_skill', function () {

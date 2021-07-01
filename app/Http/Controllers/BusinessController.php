@@ -43,7 +43,6 @@ class BusinessController extends Controller
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
         $business->lng = $request->input('lng');
-        $business->credits = $request->input('credits');
         $business->save();
     }
 
@@ -85,7 +84,6 @@ class BusinessController extends Controller
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
         $business->lng = $request->input('lng');
-        $business->credits = $request->input('credits');
         $business->save();
     }
 

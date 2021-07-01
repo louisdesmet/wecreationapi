@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/messages', 'MessageController');
     Route::resource('/events', 'EventController');
     Route::resource('/businesses', 'BusinessController');
+    Route::resource('/products', 'ProductController');
     Route::resource('/activities', 'ActivityController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');

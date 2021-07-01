@@ -20,6 +20,8 @@ class CreateEventsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('location');
+            $table->string('lat');
+            $table->string('lng'); 
             $table->dateTime('date');
             $table->string('skill')->nullable();
             $table->string('credits');

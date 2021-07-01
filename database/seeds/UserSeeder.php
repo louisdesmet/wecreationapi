@@ -22,19 +22,12 @@ class UserSeeder extends Seeder
         ));
     
         User::create(array(
-            'name'          => 'Christophe Verote',
-            'email'         => 'info@christophe.be',
+            'name'          => 'Ian Ghysels',
+            'email'         => 'ian@collectiefverhalen.be',
             'icon'          => 'faBowlingBall',
-            'password'      => Hash::make('kankerjood'),
-            'credits'       => 8
-        ));
-    
-        User::create(array(
-            'name'          => 'Jolien De Waele',
-            'email'         => 'info@jolien.be',
-            'icon'          => 'faBath',
-            'password'      => Hash::make('kankerjood'),
-            'credits'       => 2
+            'password'      => Hash::make('kous5932'),
+            'credits'       => 8,
+            'email_verified_at' => '2021-05-04 15:50:45'
         ));
     }
 }

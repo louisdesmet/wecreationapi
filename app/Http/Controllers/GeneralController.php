@@ -48,22 +48,27 @@ class GeneralController extends Controller
 
         $totalSkillHours = 0;
         $totalSkillValue = 0;
-
-        foreach(json_decode($event->skill) as $eventSkill) {
-            foreach(Skill::all() as $skill) {
-                $totalSkillHours += $eventSkill->hours;
-                $calc = $eventSkill->hours * $skill->value;
-                $totalSkillValue += $calc;
+        if($event->skill) {
+            foreach(json_decode($event->skill) as $eventSkill) {
+                foreach(Skill::all() as $skill) {
+                    $totalSkillHours += $eventSkill->hours;
+                    $calc = $eventSkill->hours * $skill->value;
+                    $totalSkillValue += $calc;
+                }
             }
+    
+            $totalGenaralValue = $event->hours - $totalSkillValue;
+            $totalGeneralHours = $event->hours - $totalSkillHours;
+            
+            $generalValue = $totalGenaralValue / $totalGeneralHours;
+    
+            $user->credits = $user->credits + ($eventUser->hours * $generalValue);
+            $user->save();
+        } else {
+            $user->credits += $eventUser->hours;
+            $user->save();
         }
-
-        $totalGenaralValue = $event->hours - $totalSkillValue;
-        $totalGeneralHours = $event->hours - $totalSkillHours;
-        
-        $generalValue = $totalGenaralValue / $totalGeneralHours;
-
-        $user->credits = $user->credits + ($eventUser->hours * $generalValue);
-        $user->save();
+     
 
     }
 

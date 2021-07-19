@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('icon');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedInteger('credits');
+            $table->decimal('credits', 20, 2);
             $table->rememberToken();
             $table->timestamps();
         });

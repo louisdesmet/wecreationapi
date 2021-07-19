@@ -13,19 +13,24 @@ class SkillSeeder extends Seeder
     public function run()
     {
         Skill::create(array(
-            'name' => 'regie'
+            'name' => 'regie',
+            'value' => 1.2
         ));
         Skill::create(array(
-            'name' => 'montage'
+            'name' => 'montage',
+            'value' => 1.4
         ));
         Skill::create(array(
-            'name' => 'mode'
+            'name' => 'mode',
+            'value' => 1.3
         ));
         Skill::create(array(
-            'name' => 'dans'
+            'name' => 'dans',
+            'value' => 1.5
         ));
         Skill::create(array(
-            'name' => 'camera'
+            'name' => 'camera',
+            'value' => 1.1
         ));
     }
 }

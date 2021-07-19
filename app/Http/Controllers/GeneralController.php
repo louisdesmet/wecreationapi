@@ -8,6 +8,7 @@ use App\Order;
 use App\User;
 use App\EventUser;
 use App\EventSkill;
+use App\Skill;
 
 class GeneralController extends Controller
 {
@@ -44,18 +45,36 @@ class GeneralController extends Controller
         $event = Event::find($eventUser->event_id);       
 
         $user = User::find($eventUser->user_id);
-        $user->credits += $eventUser->hours;
+
+        $totalSkillHours = 0;
+        $totalSkillValue = 0;
+
+        foreach(json_decode($event->skill) as $eventSkill) {
+            foreach(Skill::all() as $skill) {
+                $totalSkillHours += $eventSkill->hours;
+                $calc = $eventSkill->hours * $skill->value;
+                $totalSkillValue += $calc;
+            }
+        }
+
+        $totalGenaralValue = $event->hours - $totalSkillValue;
+        $totalGeneralHours = $event->hours - $totalSkillHours;
+        
+        $generalValue = $totalGenaralValue / $totalGeneralHours;
+
+        $user->credits = $user->credits + ($eventUser->hours * $generalValue);
         $user->save();
+
     }
 
     public function events($id)
-    {       
+    {
         $user = User::find($id);
         return $user->events()->with('users')->get();
     }
 
     public function trade(Request $request)
-    {   
+    {
         $user = User::find(intval($request->user_id));
         $user->credits = $user->credits + $request->amount;
         $user->save();
@@ -65,7 +84,7 @@ class GeneralController extends Controller
     }
 
     public function verifyOrder(Request $request)
-    {   
+    {
         $order = Order::find(intval($request->order));
         $order->accepted = 1;
         $order->save();

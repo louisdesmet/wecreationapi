@@ -15,7 +15,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return EventRes::collection(Event::with('project.leader', 'users')->get());
+        return EventRes::collection(Event::with('event_skill.skill', 'event_skill.users', 'project.leader')->get());
     }
 
     /**

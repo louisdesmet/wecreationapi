@@ -6,32 +6,27 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Order;
 use App\User;
-use App\EventUser;
+use App\EventSkillUser;
 use App\EventSkill;
 use App\Skill;
 
 class GeneralController extends Controller
 {
-    
-    public function subscribe(Request $request)
-    {
-        $event = Event::find($request->event_id);
-        $event->users()->attach([$request->user_id => ['hours' => $request->hours]]);
-    }
 
     public function subscribeSkill(Request $request)
     {
-        $eventSkill = new EventSkill;
-        $eventSkill->event_id = $request->input('event_id');
-        $eventSkill->skill_id = $request->input('skill_id');
+        /*$eventSkill = new EventSkillUser;
+        $eventSkill->event_skill_id = $request->input('event_skill_id');
         $eventSkill->user_id = $request->input('user_id');
-        $eventSkill->hours = $request->input('hours');
-        $eventSkill->save();
+        $eventSkill->save();*/
+        $eventSkill = EventSkill::find($request->eventSkillId);
+        $eventSkill->users()->syncWithoutDetaching([$request->userId]);
+
     }
 
     public function accept(Request $request)
     {
-        $eventUser = EventUser::find($request->id);
+        $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
         $eventUser->accepted = 1;
         $eventUser->save();
     }

@@ -19,9 +19,9 @@ class CreateEventSkillTable extends Migration
             $table->foreign('event_id')->references('id')->on('events');
             $table->unsignedBigInteger('skill_id');
             $table->foreign('skill_id')->references('id')->on('skills');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('amount');
             $table->unsignedBigInteger('hours');
+            $table->boolean('paid');
             $table->timestamps();
         });
     }

@@ -23,20 +23,8 @@ class User extends JsonResource
             'credits' => $this->credits,
             'created_at' => $this->created_at,
             'roles' => Role::collection($this->whenLoaded('roles')),
-            'hours' => $this->whenPivotLoaded('event_user', function () {
-                return $this->pivot->hours;
-            }),
-            'accepted' => $this->whenPivotLoaded('event_user', function () {
+            'accepted' => $this->whenPivotLoaded('event_skill_user', function () {
                 return $this->pivot->accepted;
-            }),
-            'present' => $this->whenPivotLoaded('event_user', function () {
-                return $this->pivot->present;
-            }),
-            'hours' => $this->whenPivotLoaded('event_user', function () {
-                return $this->pivot->hours;
-            }),
-            'event_user_id' => $this->whenPivotLoaded('event_user', function () {
-                return $this->pivot->id;
             }),
         ];
     }

@@ -9,12 +9,10 @@ class Event extends Model
     public function project() {
         return $this->belongsTo('App\Project');
     }
-
-    public function users() {
-        return $this->belongsToMany('App\User')->withPivot('id', 'hours', 'accepted', 'present');
+    
+    public function event_skill()
+    {
+        return $this->hasMany('App\EventSkill');
     }
-
-    public function skills() {
-        return $this->belongsToMany('App\Skill')->withPivot('user_id', 'hours');
-    }
+    
 }

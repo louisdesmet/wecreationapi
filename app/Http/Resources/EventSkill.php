@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Skill extends JsonResource
+class EventSkill extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,11 @@ class Skill extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'paid' => $this->paid,
+            'hours' => $this->hours,
+            'amount' => $this->amount,
+            'skill' => new Skill($this->whenLoaded('skill')),
+            'users' => User::collection($this->whenLoaded('users'))
         ];
     }
 }

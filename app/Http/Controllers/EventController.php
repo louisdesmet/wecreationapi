@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\EventSkill;
 use App\Http\Resources\Event as EventRes;
 
 class EventController extends Controller
@@ -28,11 +29,35 @@ class EventController extends Controller
     {
         $event = new Event;
         $event->name = $request->input('name');
+        $event->description = $request->input('desc');
         $event->location = $request->input('location');
         $event->date = $request->input('date');
-        $event->credits = $request->input('credits');
+        $event->credits = 0;
+        $event->lat = 51.035;
+        $event->lng = 3.7168;
         $event->project_id = $request->input('project');
         $event->save();
+
+        foreach($request->input('freeData') as $data) {
+            $eventSkill = new EventSkill;
+            $eventSkill->event_id = $event->id;
+            $eventSkill->skill_id = $data['skill'];
+            $eventSkill->amount = $data['amount'];
+            $eventSkill->hours = $data['hours'];
+            $eventSkill->paid = 0;
+            $eventSkill->save();
+        }
+
+        foreach($request->input('paidData') as $data) {
+            $eventSkill = new EventSkill;
+            $eventSkill->event_id = $event->id;
+            $eventSkill->skill_id = $data['skill'];
+            $eventSkill->amount = $data['amount'];
+            $eventSkill->hours = $data['hours'];
+            $eventSkill->paid = 1;
+            $eventSkill->save();
+        }
+
     }
 
     /**

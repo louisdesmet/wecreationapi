@@ -37,7 +37,7 @@ class GeneralController extends Controller
         $eventUser->present = 1;
         $eventUser->save();
         
-        $event = Event::find($eventUser->event_id);       
+        $event = Event::find($eventUser->event_id);
 
         $user = User::find($eventUser->user_id);
 

@@ -42,4 +42,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role')->withPivot('business_id');
     }
 
+    public function eventSkills() {
+        return $this->belongsToMany(EventSkill::class, 'event_skill_user', 'event_skill_id', 'user_id')->withPivot('accepted');
+    }
+
 }

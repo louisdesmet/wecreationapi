@@ -22,6 +22,7 @@ class CreateEventSkillTable extends Migration
             $table->unsignedBigInteger('amount');
             $table->unsignedBigInteger('hours');
             $table->boolean('paid');
+            $table->unsignedBigInteger('credits')->nullable();
             $table->timestamps();
         });
     }

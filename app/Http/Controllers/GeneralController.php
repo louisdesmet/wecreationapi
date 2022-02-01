@@ -67,12 +67,6 @@ class GeneralController extends Controller
 
     }
 
-    public function events($id)
-    {
-        $user = User::find($id);
-        return $user->events()->with('users')->get();
-    }
-
     public function trade(Request $request)
     {
         $user = User::find(intval($request->user_id));

@@ -54,6 +54,7 @@ class EventController extends Controller
             $eventSkill->skill_id = $data['skill'];
             $eventSkill->amount = $data['amount'];
             $eventSkill->hours = $data['hours'];
+            $eventSkill->credits = $data['credits'];
             $eventSkill->paid = 1;
             $eventSkill->save();
         }

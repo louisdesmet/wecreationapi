@@ -33,7 +33,7 @@ class EventController extends Controller
         $event->description = $request->input('desc');
         $event->location = $request->input('location');
         $event->date = $request->input('date');
-        $event->time = '10 uur';
+        $event->time = $request->input('time');
         $event->credits = 0;
         $event->lat = 51.035;
         $event->lng = 3.7168;

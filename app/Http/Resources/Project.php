@@ -20,6 +20,7 @@ class Project extends JsonResource
             'description' => $this->description,
             'credits' => $this->credits,
             'type' => $this->type,
+            'picture' => $this->picture,
             'events' => Event::collection($this->whenLoaded('events')),
             'leader' => new User($this->whenLoaded('leader'))
         ];

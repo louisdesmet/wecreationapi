@@ -20,6 +20,7 @@ class Event extends JsonResource
             'description' => $this->description,
             'location' => $this->location,
             'date' => $this->date,
+            'time' => $this->time,
             'credits' => $this->credits,
             'lat' => $this->lat,
             'lng' => $this->lng,

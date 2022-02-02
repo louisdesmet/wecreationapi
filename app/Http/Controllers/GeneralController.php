@@ -31,6 +31,28 @@ class GeneralController extends Controller
         $eventUser->save();
     }
 
+    public function present(Request $request)
+    {
+        $leader = User::find($request->leader);
+        $user = User::find($request->userId);
+
+        if($leader->credits >= $request->credits && $request->credits) {
+            $leader->credits = $leader->credits - $request->credits;
+            $leader->save();
+            $user->credits = $user->credits + $request->credits;
+            $user->save();
+            $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
+            $eventUser->present = 1;
+            $eventUser->save();
+        } else {
+            $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
+            $eventUser->present = 1;
+            $eventUser->save();
+        }
+
+        
+    }
+
     public function verify(Request $request)
     {
         $eventUser = EventUser::find($request->id);

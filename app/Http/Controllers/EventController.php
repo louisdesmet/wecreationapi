@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\EventSkill;
+use App\EventSkillUser;
 use App\Http\Resources\Event as EventRes;
 
 class EventController extends Controller
@@ -86,6 +87,19 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $eventSkills = EventSkill::where('event_id', $id)->get();
+        foreach($eventSkills as $eventSkill) {
+            EventSkillUser::where('event_skill_id', $eventSkill->id)->delete();
+           
+
+        }
+        foreach($eventSkills as $eventSkill) {
+            $eventSkill->delete();
+
+        }
+        
+        $event = Event::find($id);
+        $event->delete();
     }
 }

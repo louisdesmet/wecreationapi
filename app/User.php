@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public function eventSkills() {
-        return $this->belongsToMany(EventSkill::class, 'event_skill_user', 'event_skill_id', 'user_id')->withPivot('accepted');
+        return $this->belongsToMany(EventSkill::class, 'event_skill_user', 'event_skill_id', 'user_id')->withPivot('accepted', 'present');
     }
 
 }

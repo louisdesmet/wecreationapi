@@ -19,6 +19,7 @@ class EventSkill extends JsonResource
             'paid' => $this->paid,
             'hours' => $this->hours,
             'amount' => $this->amount,
+            'credits' =>$this->credits,
             'skill' => new Skill($this->whenLoaded('skill')),
             'users' => User::collection($this->whenLoaded('users'))
         ];

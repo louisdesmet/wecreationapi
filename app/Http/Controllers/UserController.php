@@ -85,4 +85,12 @@ class UserController extends Controller
     {
         //
     }
+
+    public function editdata(Request $request)
+    {
+        $user = User::find($request->input('id'));
+        $user->age = $request->input('age');
+        $user->description = $request->input('description');
+        $user->save();
+    }
 }

@@ -18,6 +18,8 @@ class User extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'age' => $this->age,
+            'description' => $this->description,
             'icon' => $this->icon,
             'email_verified_at' => $this->email_verified_at,
             'credits' => $this->credits,
@@ -25,6 +27,9 @@ class User extends JsonResource
             'roles' => Role::collection($this->whenLoaded('roles')),
             'accepted' => $this->whenPivotLoaded('event_skill_user', function () {
                 return $this->pivot->accepted;
+            }),
+            'present' => $this->whenPivotLoaded('event_skill_user', function () {
+                return $this->pivot->present;
             }),
         ];
     }

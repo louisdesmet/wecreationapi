@@ -29,5 +29,6 @@ class UserSeeder extends Seeder
             'credits'       => 8,
             'email_verified_at' => '2021-05-04 15:50:45'
         ));
+        
     }
 }

@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectRes::collection(Project::with('events', 'leader')->get());
+        return ProjectRes::collection(Project::with('leader', 'events.event_skill.skill', 'events.event_skill.users')->get());
     }
 
     /**

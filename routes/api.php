@@ -21,13 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
 
+Route::resource('/events', 'EventController');
+Route::resource('/activities', 'ActivityController');
+Route::resource('/businesses', 'BusinessController');
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/projects', 'ProjectController');
     Route::resource('/messages', 'MessageController');
-    Route::resource('/events', 'EventController');
-    Route::resource('/businesses', 'BusinessController');
+    
     Route::resource('/products', 'ProductController');
-    Route::resource('/activities', 'ActivityController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');
     Route::post('/subscribe', 'GeneralController@subscribe');

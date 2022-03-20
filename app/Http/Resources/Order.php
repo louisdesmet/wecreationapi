@@ -17,6 +17,7 @@ class Order extends JsonResource
         return [
             'id' => $this->id,
             'accepted' => $this->accepted,
+            'created_at' => $this->created_at,
             'product' => new Product($this->whenLoaded('product')),
             'user' => new User($this->whenLoaded('user'))
         ];

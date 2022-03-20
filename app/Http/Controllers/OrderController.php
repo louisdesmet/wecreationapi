@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\User;
 use App\Product;
 use App\Http\Resources\Order as OrderRes;
 use Illuminate\Support\Facades\DB;
@@ -39,14 +40,18 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $product = Product::find($request->input('product'));
+        $user = User::find($request->input('user'));
 
-        if($product->amount > 0) {
+        if($product->amount > 0 && $user->credits >= $product->price) {
+
             $order = new Order;
             $order->product_id = $request->input('product');
             $order->user_id = $request->input('user');
             $order->save();    
             $product->amount -= 1;
             $product->save(); 
+            $user->credits -= $product->price;
+            $user->save();
             return $order;
         }
 

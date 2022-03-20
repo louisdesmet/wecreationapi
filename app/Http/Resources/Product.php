@@ -19,6 +19,8 @@ class Product extends JsonResource
             'name' => $this->name,
             'amount' => $this->amount,
             'price' => $this->price,
+            'picture' => $this->picture,
+            'description' => $this->description,
             'business' => new Business($this->whenLoaded('business'))
         ];
     }

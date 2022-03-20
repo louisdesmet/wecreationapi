@@ -41,6 +41,7 @@ class ProjectController extends Controller
         $project->description = $request->input('description');
         $project->credits = $request->input('credits');
         $project->leader_id = $request->input('leader');
+        $project->picture = "noimage.jpg";
         $project->save();
     }
 

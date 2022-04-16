@@ -28,7 +28,6 @@ Route::resource('/businesses', 'BusinessController');
 Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/projects', 'ProjectController');
     Route::resource('/messages', 'MessageController');
-    
     Route::resource('/products', 'ProductController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');
@@ -41,4 +40,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/verify-order', 'GeneralController@verifyOrder');
     Route::post('/users/editdata', 'UserController@editdata');
     Route::resource('/users', 'UserController');
+    Route::resource('/groups', 'GroupController');
 });

@@ -15,7 +15,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return MessageRes::collection(Message::with('user')->get());
+        return MessageRes::collection(Message::with('user', 'recipient', 'group.event.project')->get());
     }
 
     /**
@@ -39,6 +39,8 @@ class MessageController extends Controller
         $message = new Message;
         $message->message = $request->input('message');
         $message->user_id = $request->input('user');
+        $message->recipient_id = $request->input('recipient');
+        $message->group_id = $request->input('group');
         $message->save();
     }
 

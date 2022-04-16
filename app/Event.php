@@ -14,5 +14,9 @@ class Event extends Model
     {
         return $this->hasMany('App\EventSkill');
     }
+
+    public function group() {
+        return $this->hasOne('App\Group');
+    }
     
 }

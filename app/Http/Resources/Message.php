@@ -18,7 +18,10 @@ class Message extends JsonResource
             'id' => $this->id,
             'message' => $this->message,
             'created_at' => $this->created_at,
+            'notification' => $this->notification,
             'user' => new User($this->whenLoaded('user')),
+            'recipient' => new User($this->whenLoaded('recipient')),
+            'group' => new Group($this->whenLoaded('group'))
         ];
     }
 }

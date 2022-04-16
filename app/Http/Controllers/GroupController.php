@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Business;
-use App\Product;
-use App\Http\Resources\Business as BusinessRes;
+use App\Group;
+use App\Http\Resources\Group as GroupRes;
 
-class BusinessController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        return BusinessRes::collection(Business::with('products')->get());
+        return GroupRes::collection(Group::with('messages.group.event.project', 'messages.user', 'event.project')->get());
     }
 
     /**
@@ -37,26 +36,6 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-
-        $business = new Business;
-        $business->name = $request->input('name');
-        $business->type = "business";
-        $business->description = $request->input('desc');
-        $business->location = $request->input('location');
-        $business->lat = "51.08825";
-        $business->lng = "3.76578";
-        $business->save();
-
-        foreach($request->input('freeData') as $data) {
-            $product = new Product;
-            $product->business_id = $business->id;
-            $product->name = $data['name'];
-            $product->description = $data['desc'];
-            $product->price = $data['price'];
-            $product->amount = $data['stock'];
-            $product->picture = "noimage.jpg";
-            $product->save();
-        }
 
     }
 
@@ -91,14 +70,7 @@ class BusinessController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $business = Business::find($id);
-        $business->name = $request->input('name');
-        $business->type = $request->input('type');
-        $business->description = $request->input('description');
-        $business->location = $request->input('location');
-        $business->lat = $request->input('lat');
-        $business->lng = $request->input('lng');
-        $business->save();
+
     }
 
     /**

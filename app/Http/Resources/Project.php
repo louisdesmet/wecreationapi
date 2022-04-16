@@ -22,7 +22,8 @@ class Project extends JsonResource
             'type' => $this->type,
             'picture' => $this->picture,
             'events' => Event::collection($this->whenLoaded('events')),
-            'leader' => new User($this->whenLoaded('leader'))
+            'leader' => new User($this->whenLoaded('leader')),
+            'created_at' => $this->created_at
         ];
     }
 }

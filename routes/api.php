@@ -31,6 +31,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/products', 'ProductController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');
+    Route::resource('/users', 'UserController');
+    Route::resource('/groups', 'GroupController');
+
     Route::post('/subscribe', 'GeneralController@subscribe');
     Route::post('/subscribe-skill', 'GeneralController@subscribeSkill');
     Route::post('/accept', 'GeneralController@accept');
@@ -38,7 +41,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/trade', 'GeneralController@trade');
     Route::post('/verify', 'GeneralController@verify');
     Route::post('/verify-order', 'GeneralController@verifyOrder');
+    Route::post('/like-event', 'GeneralController@likeEvent');
+
     Route::post('/users/editdata', 'UserController@editdata');
-    Route::resource('/users', 'UserController');
-    Route::resource('/groups', 'GroupController');
 });

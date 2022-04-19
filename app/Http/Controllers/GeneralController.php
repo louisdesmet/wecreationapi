@@ -10,6 +10,7 @@ use App\EventSkillUser;
 use App\EventSkill;
 use App\Skill;
 
+
 class GeneralController extends Controller
 {
 
@@ -21,7 +22,6 @@ class GeneralController extends Controller
         $eventSkill->save();*/
         $eventSkill = EventSkill::find($request->eventSkillId);
         $eventSkill->users()->syncWithoutDetaching([$request->userId]);
-
     }
 
     public function accept(Request $request)
@@ -105,5 +105,12 @@ class GeneralController extends Controller
         $order->accepted = 1;
         $order->save();
     }
+
+    public function likeEvent(Request $request)
+    {
+        $user = User::find($request->user);
+        $user->events()->syncWithoutDetaching($request->event); 
+    }
+
 
 }

@@ -18,5 +18,8 @@ class Event extends Model
     public function group() {
         return $this->hasOne('App\Group');
     }
-    
+
+    public function users() {
+        return $this->belongsToMany('App\User');
+    }
 }

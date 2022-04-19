@@ -7,6 +7,7 @@ use App\Event;
 use App\EventSkill;
 use App\EventSkillUser;
 use App\Http\Resources\Event as EventRes;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
@@ -17,7 +18,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return EventRes::collection(Event::with('event_skill.skill', 'event_skill.users', 'project.leader', 'group')->get());
+        return EventRes::collection(Event::with('users', 'event_skill.skill', 'event_skill.users', 'project.leader', 'group')->get());
     }
 
     /**
@@ -28,6 +29,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
         $event = new Event;
         $event->name = $request->input('name');
         $event->description = $request->input('desc');
@@ -35,31 +41,49 @@ class EventController extends Controller
         $event->date = $request->input('date');
         $event->time = $request->input('time');
         $event->credits = 0;
-        $event->lat = 51.035;
-        $event->lng = 3.7168;
+        $event->lat = $request->input('lat');
+        $event->lng = $request->input('lng');
         $event->project_id = $request->input('project');
+        $event->image = "noimage.jpg";
         $event->save();
 
-        foreach($request->input('freeData') as $data) {
+        foreach(json_decode($request->input('freeData')) as $data) {
+
             $eventSkill = new EventSkill;
             $eventSkill->event_id = $event->id;
-            $eventSkill->skill_id = $data['skill'];
-            $eventSkill->amount = $data['amount'];
-            $eventSkill->hours = $data['hours'];
+            $eventSkill->skill_id = $data->skill;
+            $eventSkill->amount = $data->amount;
+            $eventSkill->hours = $data->hours;
             $eventSkill->paid = 0;
             $eventSkill->save();
         }
 
-        foreach($request->input('paidData') as $data) {
+        foreach(json_decode($request->input('paidData')) as $data) {
             $eventSkill = new EventSkill;
             $eventSkill->event_id = $event->id;
-            $eventSkill->skill_id = $data['skill'];
-            $eventSkill->amount = $data['amount'];
-            $eventSkill->hours = $data['hours'];
-            $eventSkill->credits = $data['credits'];
+            $eventSkill->skill_id = $data->skill;
+            $eventSkill->amount = $data->amount;
+            $eventSkill->hours = $data->hours;
+            $eventSkill->credits = $data->credits;
             $eventSkill->paid = 1;
             $eventSkill->save();
         }
+
+        
+
+  
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/events');
+            $image->move($destinationPath, $name);
+            $event->image = $name;
+            $event->save();
+        }
+        
+
+
 
     }
 
@@ -72,12 +96,65 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
+  
+        /*$this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);*/
+
         $event = Event::find($id);
+
         $event->name = $request->input('name');
+        $event->description = $request->input('desc');
         $event->location = $request->input('location');
         $event->date = $request->input('date');
-        $event->credits = $request->input('credits');
+        $event->time = $request->input('time');
+        $event->credits = 0;
+        $event->lat = $request->input('lat');
+        $event->lng = $request->input('lng');
+        $event->image = "noimage.jpg";
         $event->save();
+
+        foreach($request->input('freeData') as $data) {
+            if(isset($data['eventSkill'])) {
+                $eventSkill = EventSkill::find($data['eventSkill']);
+            } else {
+                $eventSkill = new EventSkill;
+            }
+            $eventSkill->event_id = $event->id;
+            $eventSkill->skill_id = $data['skill'];
+            $eventSkill->amount = $data['amount'];
+            $eventSkill->hours = $data['hours'];
+            $eventSkill->paid = 0;
+            $eventSkill->save();
+        }
+
+        foreach($request->input('paidData') as $data) {
+            if(isset($data['eventSkill'])) {
+                $eventSkill = EventSkill::find($data['eventSkill']);
+            } else {
+                $eventSkill = new EventSkill;
+            }
+            $eventSkill->event_id = $event->id;
+            $eventSkill->skill_id = $data['skill'];
+            $eventSkill->amount = $data['amount'];
+            $eventSkill->hours = $data['hours'];
+            $eventSkill->credits = $data['credits'];
+            $eventSkill->paid = 1;
+            $eventSkill->save();
+        }
+
+        
+
+  
+
+       /* if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/events');
+            $image->move($destinationPath, $name);
+            $event->image = $name;
+            $event->save();
+        }*/
     }
 
     /**

@@ -30,7 +30,7 @@ class AuthController extends Controller
         
         return [
             "token" => json_decode((string)$response->getBody(), true),
-            "user" => UserRes::collection(User::with('roles')->where('email', $request->email)->get())
+            "user" => UserRes::collection(User::where('email', $request->email)->with('roles')->get())
         ];
     }
 
@@ -42,7 +42,7 @@ class AuthController extends Controller
             'icon' => $icons[rand(0, 16)],
             'password' => Hash::make($request->password),
             'name' => $request->name,
-            'credits' => 0   
+            'credits' => 0 
         ));
     }
     

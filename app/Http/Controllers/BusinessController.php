@@ -43,8 +43,8 @@ class BusinessController extends Controller
         $business->type = "business";
         $business->description = $request->input('desc');
         $business->location = $request->input('location');
-        $business->lat = "51.08825";
-        $business->lng = "3.76578";
+        $business->lat = $request->input('lat');
+        $business->lng = $request->input('lng');
         $business->save();
 
         foreach($request->input('freeData') as $data) {
@@ -93,12 +93,27 @@ class BusinessController extends Controller
     {
         $business = Business::find($id);
         $business->name = $request->input('name');
-        $business->type = $request->input('type');
-        $business->description = $request->input('description');
+        $business->type = "business";
+        $business->description = $request->input('desc');
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
         $business->lng = $request->input('lng');
         $business->save();
+
+        foreach($request->input('freeData') as $data) {
+            if(isset($data['product'])) {
+                $product = Product::find($data['product']);
+            } else {
+                $product = new Product;
+            }
+            $product->business_id = $business->id;
+            $product->name = $data['name'];
+            $product->description = $data['desc'];
+            $product->price = $data['price'];
+            $product->amount = $data['stock'];
+            $product->picture = "noimage.jpg";
+            $product->save();
+        }
     }
 
     /**

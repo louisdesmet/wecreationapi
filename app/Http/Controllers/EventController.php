@@ -47,6 +47,11 @@ class EventController extends Controller
         $event->image = "noimage.jpg";
         $event->save();
 
+        $group = new Group;
+        $group->name = $event->name;
+        $group->event_id = $event->id;
+        $group->save();
+
         foreach(json_decode($request->input('freeData')) as $data) {
 
             $eventSkill = new EventSkill;

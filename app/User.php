@@ -50,4 +50,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Event')->withTimestamps();
     }
 
+    public function activities() {
+        return $this->belongsToMany('App\Activity');
+    }
+
 }

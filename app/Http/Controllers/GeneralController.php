@@ -112,5 +112,10 @@ class GeneralController extends Controller
         $user->events()->syncWithoutDetaching($request->event); 
     }
 
+    public function likeActivity(Request $request)
+    {
+        $user = User::find($request->user);
+        $user->activities()->syncWithoutDetaching($request->activity);
+    }
 
 }

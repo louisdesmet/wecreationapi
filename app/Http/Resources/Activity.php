@@ -17,10 +17,13 @@ class Activity extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'location' => $this->location,
+            'description' => $this->description,
             'date' => $this->date,
+            'time' => $this->time,
+            'location' => $this->location,
             'lat' => $this->lat,
-            'lng' => $this->lng
+            'lng' => $this->lng,
+            'users' => User::collection($this->whenLoaded('users'))
         ];
     }
 }

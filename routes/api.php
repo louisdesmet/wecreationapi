@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/verify', 'GeneralController@verify');
     Route::post('/verify-order', 'GeneralController@verifyOrder');
     Route::post('/like-event', 'GeneralController@likeEvent');
+    Route::post('/like-activity', 'GeneralController@likeActivity');
 
     Route::post('/users/editdata', 'UserController@editdata');
 });

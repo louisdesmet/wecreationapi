@@ -15,7 +15,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return ActivityRes::collection(Activity::all());
+        return ActivityRes::collection(Activity::with("users")->get());
     }
 
     /**
@@ -38,10 +38,13 @@ class ActivityController extends Controller
     {
         $activity = new Activity;
         $activity->name = $request->input('name');
-        $activity->location = $request->input('location');
+        $activity->description = $request->input('desc');
         $activity->date = $request->input('date');
+        $activity->time = $request->input('time');
+        $activity->location = $request->input('location');
         $activity->lat = $request->input('lat');
         $activity->lng = $request->input('lng');
+        $activity->user_id = $request->input('user');
         $activity->save();
     }
 

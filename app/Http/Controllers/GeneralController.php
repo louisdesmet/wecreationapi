@@ -118,4 +118,10 @@ class GeneralController extends Controller
         $user->activities()->syncWithoutDetaching($request->activity);
     }
 
+    public function likeBusiness(Request $request)
+    {
+        $user = User::find($request->user);
+        $user->businesses()->syncWithoutDetaching($request->business);
+    }
+
 }

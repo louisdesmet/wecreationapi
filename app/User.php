@@ -51,7 +51,11 @@ class User extends Authenticatable
     }
 
     public function activities() {
-        return $this->belongsToMany('App\Activity');
+        return $this->belongsToMany('App\Activity')->withTimestamps();
+    }
+
+    public function businesses() {
+        return $this->belongsToMany('App\Business')->withTimestamps();
     }
 
 }

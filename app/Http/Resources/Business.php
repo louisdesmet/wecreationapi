@@ -23,6 +23,7 @@ class Business extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'products' => Product::collection($this->whenLoaded('products')),
+            'users' => User::collection($this->whenLoaded('users'))
         ];
     }
 }

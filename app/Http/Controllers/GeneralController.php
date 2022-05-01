@@ -26,31 +26,40 @@ class GeneralController extends Controller
 
     public function accept(Request $request)
     {
-        $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
+        $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->first();
         $eventUser->accepted = 1;
         $eventUser->save();
+    }
+
+    public function decline(Request $request)
+    {
+        $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->delete();
     }
 
     public function present(Request $request)
     {
         $leader = User::find($request->leader);
-        $user = User::find($request->userId);
+        $user = User::find($request->user);
 
         if($leader->credits >= $request->credits && $request->credits) {
             $leader->credits = $leader->credits - $request->credits;
             $leader->save();
             $user->credits = $user->credits + $request->credits;
             $user->save();
-            $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
+            $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->first();
             $eventUser->present = 1;
             $eventUser->save();
         } else {
-            $eventUser = EventSkillUser::where('user_id', $request->userId)->where('event_skill_id', $request->eventSkillId)->first();
+            $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->first();
             $eventUser->present = 1;
             $eventUser->save();
         }
 
-        
+    }
+
+    public function notPresent(Request $request)
+    {
+        $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->delete();
     }
 
     public function verify(Request $request)

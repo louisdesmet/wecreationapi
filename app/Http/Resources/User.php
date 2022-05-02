@@ -25,6 +25,7 @@ class User extends JsonResource
             'credits' => $this->credits,
             'created_at' => $this->created_at,
             'roles' => Role::collection($this->whenLoaded('roles')),
+            'users' => User::collection($this->whenLoaded('users')),
             'accepted' => $this->whenPivotLoaded('event_skill_user', function () {
                 return $this->pivot->accepted;
             }),

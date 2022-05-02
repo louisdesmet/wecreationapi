@@ -58,4 +58,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Business')->withTimestamps();
     }
 
+    public function users() {
+        return $this->belongsToMany('App\User', 'user_user', 'user_id', 'liker_id');
+    }
+
 }

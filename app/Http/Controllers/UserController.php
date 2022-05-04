@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserRes::collection(User::with('roles', 'users')->get());
+        return UserRes::collection(User::with('roles', 'users', 'businesses', 'activities', 'events')->get());
     }
 
     /**

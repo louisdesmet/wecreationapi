@@ -23,7 +23,10 @@ class Activity extends JsonResource
             'location' => $this->location,
             'lat' => $this->lat,
             'lng' => $this->lng,
-            'users' => User::collection($this->whenLoaded('users'))
+            'users' => User::collection($this->whenLoaded('users')),
+            'liked_at' => $this->whenPivotLoaded('activity_user', function () {
+                return $this->pivot->created_at;
+            }),
         ];
     }
 }

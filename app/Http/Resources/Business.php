@@ -23,7 +23,10 @@ class Business extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'products' => Product::collection($this->whenLoaded('products')),
-            'users' => User::collection($this->whenLoaded('users'))
+            'users' => User::collection($this->whenLoaded('users')),
+            'liked_at' => $this->whenPivotLoaded('business_user', function () {
+                return $this->pivot->created_at;
+            }),
         ];
     }
 }

@@ -9,26 +9,28 @@ use App\User;
 use App\EventSkillUser;
 use App\EventSkill;
 use App\Skill;
-
+use App\Message;
 
 class GeneralController extends Controller
 {
 
     public function subscribeSkill(Request $request)
     {
-        /*$eventSkill = new EventSkillUser;
-        $eventSkill->event_skill_id = $request->input('event_skill_id');
-        $eventSkill->user_id = $request->input('user_id');
-        $eventSkill->save();*/
         $eventSkill = EventSkill::find($request->eventSkillId);
         $eventSkill->users()->syncWithoutDetaching([$request->userId]);
     }
 
     public function accept(Request $request)
     {
-        $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->first();
+        $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill['id'])->first();
         $eventUser->accepted = 1;
         $eventUser->save();
+
+        $message = new Message;
+        $message->notification = 1;
+        $message->user_id = $request->user;
+        $message->message = "De project leider " . $request->leader . " heeft je aanvraag voor " . $request->eventSkill['hours'] . " uur " . $request->eventSkill['skill']['name'] . " goedgekeurd voor het event " . $request->eventName . ".";
+        $message->save();
     }
 
     public function decline(Request $request)
@@ -136,7 +138,13 @@ class GeneralController extends Controller
     public function likeUser(Request $request)
     {
         $user = User::find($request->user);
-        $user->users()->syncWithoutDetaching($request->liker);
+        $user->users()->syncWithoutDetaching($request->liker['id']);
+
+        $message = new Message;
+        $message->notification = 1;
+        $message->recipient_id = $request->user;
+        $message->message = $request->liker['name'] . " vind je profiel leuk.";
+        $message->save();
     }
 
 }

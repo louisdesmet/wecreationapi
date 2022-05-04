@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\User;
 use App\Product;
+use App\Message;
 use App\Http\Resources\Order as OrderRes;
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +53,13 @@ class OrderController extends Controller
             $product->save(); 
             $user->credits -= $product->price;
             $user->save();
+
+            $message = new Message;
+            $message->notification = 1;
+            $message->recipient_id = $request->input('business_user');
+            $message->message =  $user->name . " wilt een " . $product->name . " kopen voor " . $product->price . " credits.";
+            $message->save();
+
             return $order;
         }
 

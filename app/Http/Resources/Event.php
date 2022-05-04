@@ -29,6 +29,9 @@ class Event extends JsonResource
             'users' => User::collection($this->whenLoaded('users')),
             'project' => new Project($this->whenLoaded('project')),
             'group' => new Group($this->whenLoaded('group')),
+            'liked_at' => $this->whenPivotLoaded('event_user', function () {
+                return $this->pivot->created_at;
+            }),
         ];
     }
 }

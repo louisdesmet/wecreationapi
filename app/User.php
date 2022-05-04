@@ -47,19 +47,19 @@ class User extends Authenticatable
     }
 
     public function events() {
-        return $this->belongsToMany('App\Event')->withTimestamps();
+        return $this->belongsToMany('App\Event')->withTimestamps()->withPivot('created_at');
     }
 
     public function activities() {
-        return $this->belongsToMany('App\Activity')->withTimestamps();
+        return $this->belongsToMany('App\Activity')->withTimestamps()->withPivot('created_at');
     }
 
     public function businesses() {
-        return $this->belongsToMany('App\Business')->withTimestamps();
+        return $this->belongsToMany('App\Business')->withTimestamps()->withPivot('created_at');
     }
 
     public function users() {
-        return $this->belongsToMany('App\User', 'user_user', 'user_id', 'liker_id');
+        return $this->belongsToMany('App\User', 'user_user', 'user_id', 'liker_id')->withPivot('created_at');
     }
 
 }

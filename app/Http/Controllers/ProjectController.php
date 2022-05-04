@@ -36,12 +36,28 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
         $project = new Project;
         $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->credits = $request->input('credits');
+        $project->description = $request->input('desc');
+        $project->credits = 0;
         $project->leader_id = $request->input('leader');
         $project->picture = "noimage.jpg";
+       
+
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/projects');
+            $image->move($destinationPath, $name);
+            $project->picture = $name;
+        }
+
         $project->save();
     }
 

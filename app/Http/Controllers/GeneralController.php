@@ -28,7 +28,7 @@ class GeneralController extends Controller
 
         $message = new Message;
         $message->notification = 1;
-        $message->user_id = $request->user;
+        $message->recipient_id = $request->user;
         $message->message = "De project leider " . $request->leader . " heeft je aanvraag voor " . $request->eventSkill['hours'] . " uur " . $request->eventSkill['skill']['name'] . " goedgekeurd voor het event " . $request->eventName . ".";
         $message->save();
     }

@@ -119,7 +119,6 @@ class EventController extends Controller
         $event->credits = 0;
         $event->lat = $request->input('lat');
         $event->lng = $request->input('lng');
-        $event->image = "noimage.jpg";
         $event->save();
 
         foreach($request->input('freeData') as $data) {

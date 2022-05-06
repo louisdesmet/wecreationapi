@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Business;
 use App\Product;
+use App\User;
 use App\Http\Resources\Business as BusinessRes;
 
 class BusinessController extends Controller
@@ -46,6 +47,11 @@ class BusinessController extends Controller
         $business->lat = $request->input('lat');
         $business->lng = $request->input('lng');
         $business->save();
+
+        $user = User::find($request->input('user'));
+        $user->roles()->sync([ 
+            3 => ['business_id' => $business->id]
+        ]);
 
         foreach($request->input('freeData') as $data) {
             $product = new Product;

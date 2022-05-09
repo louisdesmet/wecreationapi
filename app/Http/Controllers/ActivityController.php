@@ -36,6 +36,11 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
         $activity = new Activity;
         $activity->name = $request->input('name');
         $activity->description = $request->input('desc');
@@ -45,6 +50,17 @@ class ActivityController extends Controller
         $activity->lat = $request->input('lat');
         $activity->lng = $request->input('lng');
         $activity->user_id = $request->input('user');
+        
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/activities');
+            $image->move($destinationPath, $name);
+            $activity->image = $name;
+        } else {
+            $activity->image = "noimage.jpg";
+        }
         $activity->save();
     }
 

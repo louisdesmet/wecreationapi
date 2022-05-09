@@ -77,10 +77,6 @@ class EventController extends Controller
             $eventSkill->save();
         }
 
-        
-
-  
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
@@ -89,9 +85,6 @@ class EventController extends Controller
             $event->image = $name;
             $event->save();
         }
-        
-
-
 
     }
 

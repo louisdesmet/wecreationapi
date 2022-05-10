@@ -46,6 +46,7 @@ class ActivityController extends Controller
         $activity->description = $request->input('desc');
         $activity->date = $request->input('date');
         $activity->time = $request->input('time');
+        $activity->ticketlink = $request->input('ticketlink');
         $activity->location = $request->input('location');
         $activity->lat = $request->input('lat');
         $activity->lng = $request->input('lng');

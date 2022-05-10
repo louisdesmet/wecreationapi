@@ -58,7 +58,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Business')->withTimestamps()->withPivot('created_at');
     }
 
-    public function users() {
+    public function givenLikes() {
+        return $this->belongsToMany('App\User', 'user_user', 'liker_id', 'user_id')->withPivot('created_at');
+    }
+
+    public function receivedLikes() {
         return $this->belongsToMany('App\User', 'user_user', 'user_id', 'liker_id')->withPivot('created_at');
     }
 

@@ -137,8 +137,8 @@ class GeneralController extends Controller
 
     public function likeUser(Request $request)
     {
-        $user = User::find($request->user);
-        $user->users()->syncWithoutDetaching($request->liker['id']);
+        $user = User::find($request->liker['id']);
+        $user->givenLikes()->syncWithoutDetaching($request->user);
 
         $message = new Message;
         $message->notification = 1;

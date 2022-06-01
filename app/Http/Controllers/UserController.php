@@ -88,9 +88,24 @@ class UserController extends Controller
 
     public function editdata(Request $request)
     {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
         $user = User::find($request->input('id'));
         $user->age = $request->input('age');
         $user->description = $request->input('description');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/users');
+            $image->move($destinationPath, $name);
+            $user->image = $name;
+        } else {
+            $user->image = "noimage.jpg";
+        }
         $user->save();
     }
 }

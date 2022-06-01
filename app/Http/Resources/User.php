@@ -21,6 +21,7 @@ class User extends JsonResource
             'age' => $this->age,
             'description' => $this->description,
             'icon' => $this->icon,
+            'image' => $this->image,
             'email_verified_at' => $this->email_verified_at,
             'credits' => $this->credits,
             'created_at' => $this->created_at,

@@ -21,6 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
 
+Route::post('reset_password_without_token', 'AuthController@validatePasswordRequest');
+Route::post('reset_password_with_token', 'AuthController@resetPassword');
+
 Route::resource('/events', 'EventController');
 Route::resource('/activities', 'ActivityController');
 Route::resource('/businesses', 'BusinessController');

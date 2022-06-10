@@ -21,6 +21,9 @@ class Product extends JsonResource
             'price' => $this->price,
             'picture' => $this->picture,
             'description' => $this->description,
+            'date' => $this->date,
+            'start_hour' => $this->start_hour,
+            'end_hour' => $this->end_hour,
             'business' => new Business($this->whenLoaded('business'))
         ];
     }

@@ -9,6 +9,11 @@ use App\User;
 use App\Http\Resources\User as UserRes;
 use Auth;
 use Illuminate\Support\Facades\App;
+use DB;
+use App\Mail\PasswordReset;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -42,8 +47,37 @@ class AuthController extends Controller
             'icon' => $icons[rand(0, 16)],
             'password' => Hash::make($request->password),
             'name' => $request->name,
-            'credits' => 0 
+            'credits' => 0
         ));
     }
+
+    public function validatePasswordRequest(Request $request) {
+        $user = User::where('email', '=', $request->email)->first();
+
+        if($user) {
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => Str::random(60),
+                'created_at' => Carbon::now()
+            ]);
+
+            $tokenData = DB::table('password_resets')->where('email', $request->email)->first();
+
+            $link = (App::environment('production')) ? ('https://wecreation.be/') : ('http://localhost:3000/') . 'password/reset/' . $tokenData->token . '/' . urlencode($request->email);
+            
+            Mail::to($request->email)->send(new PasswordReset($link, $user));
+        }
+    }
     
+    public function resetPassword(Request $request) {
+        
+        $tokenData = DB::table('password_resets')->where('token', $request->token)->where('email', $request->replacedEmail)->first();
+        if($tokenData) {
+            $user = User::where('email', '=', $request->replacedEmail)->first();
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            DB::table('password_resets')->where('email', $user->email)->delete();
+        }
+    }
 }

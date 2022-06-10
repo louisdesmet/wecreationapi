@@ -41,7 +41,7 @@ class BusinessController extends Controller
 
         $business = new Business;
         $business->name = $request->input('name');
-        $business->type = "business";
+        $business->type = $request->input('type');
         $business->description = $request->input('desc');
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
@@ -49,9 +49,17 @@ class BusinessController extends Controller
         $business->save();
 
         $user = User::find($request->input('user'));
-        $user->roles()->sync([ 
-            3 => ['business_id' => $business->id]
-        ]);
+
+        if($request->input('type') === "business") {
+            $user->roles()->sync([
+                3 => ['business_id' => $business->id]
+            ]);
+        } else {
+            $user->roles()->sync([
+                4 => ['business_id' => $business->id]
+            ]);
+        }
+        
 
         foreach($request->input('freeData') as $data) {
             $product = new Product;
@@ -59,7 +67,14 @@ class BusinessController extends Controller
             $product->name = $data['name'];
             $product->description = $data['desc'];
             $product->price = $data['price'];
-            $product->amount = $data['stock'];
+            if($request->input('type') === "business") {
+                $product->amount = $data['stock'];
+            }
+            if($request->input('type') === "service") {
+                $product->date = $data['date'];
+                $product->start_hour = $data['starthour'];
+                $product->end_hour = $data['endhour'];
+            }
             $product->picture = "noimage.jpg";
             $product->save();
         }
@@ -99,7 +114,7 @@ class BusinessController extends Controller
     {
         $business = Business::find($id);
         $business->name = $request->input('name');
-        $business->type = "business";
+        $business->type = $request->input('type');
         $business->description = $request->input('desc');
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
@@ -116,7 +131,14 @@ class BusinessController extends Controller
             $product->name = $data['name'];
             $product->description = $data['desc'];
             $product->price = $data['price'];
-            $product->amount = $data['stock'];
+            if($request->input('type') === "business") {
+                $product->amount = $data['stock'];
+            }
+            if($request->input('type') === "service") {
+                $product->date = $data['date'];
+                $product->start_hour = $data['starthour'];
+                $product->end_hour = $data['endhour'];
+            }
             $product->picture = "noimage.jpg";
             $product->save();
         }

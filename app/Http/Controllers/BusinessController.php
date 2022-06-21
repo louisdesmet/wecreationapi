@@ -51,11 +51,11 @@ class BusinessController extends Controller
         $user = User::find($request->input('user'));
 
         if($request->input('type') === "business") {
-            $user->roles()->sync([
+            $user->roles()->syncWithoutDetaching([
                 3 => ['business_id' => $business->id]
             ]);
         } else {
-            $user->roles()->sync([
+            $user->roles()->syncWithoutDetaching([
                 4 => ['business_id' => $business->id]
             ]);
         }

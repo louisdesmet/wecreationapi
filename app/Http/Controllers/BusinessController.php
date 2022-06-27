@@ -39,6 +39,10 @@ class BusinessController extends Controller
     public function store(Request $request)
     {
 
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
         $business = new Business;
         $business->name = $request->input('name');
         $business->type = $request->input('type');
@@ -46,6 +50,7 @@ class BusinessController extends Controller
         $business->location = $request->input('location');
         $business->lat = $request->input('lat');
         $business->lng = $request->input('lng');
+        $business->image = "noimage.jpg";
         $business->save();
 
         $user = User::find($request->input('user'));
@@ -59,24 +64,32 @@ class BusinessController extends Controller
                 4 => ['business_id' => $business->id]
             ]);
         }
-        
 
-        foreach($request->input('freeData') as $data) {
+        foreach(json_decode($request->input('freeData')) as $data) {
             $product = new Product;
             $product->business_id = $business->id;
-            $product->name = $data['name'];
-            $product->description = $data['desc'];
-            $product->price = $data['price'];
+            $product->name = $data->name;
+            $product->description = $data->desc;
+            $product->price = $data->price;
             if($request->input('type') === "business") {
-                $product->amount = $data['stock'];
+                $product->amount = $data->stock;
             }
             if($request->input('type') === "service") {
-                $product->date = $data['date'];
-                $product->start_hour = $data['starthour'];
-                $product->end_hour = $data['endhour'];
+                $product->date = $data->date;
+                $product->start_hour = $data->starthour;
+                $product->end_hour = $data->endhour;
             }
             $product->picture = "noimage.jpg";
             $product->save();
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/businesses');
+            $image->move($destinationPath, $name);
+            $business->image = $name;
+            $business->save();
         }
 
     }

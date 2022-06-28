@@ -24,6 +24,7 @@ Route::post('/register', 'AuthController@register');
 Route::post('reset_password_without_token', 'AuthController@validatePasswordRequest');
 Route::post('reset_password_with_token', 'AuthController@resetPassword');
 
+Route::post('events/image', 'EventController@addimage');
 Route::resource('/events', 'EventController');
 Route::resource('/activities', 'ActivityController');
 Route::resource('/businesses', 'BusinessController');

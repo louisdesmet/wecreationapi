@@ -184,4 +184,24 @@ class EventController extends Controller
         $event = Event::find($id);
         $event->delete();
     }
+
+    public function addimage(Request $request)
+    {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
+        $event = Event::find($request->input('eventid'));
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/events');
+            $image->move($destinationPath, $name);
+            $event->image = $name;
+            $event->save();
+        }
+
+    }
 }

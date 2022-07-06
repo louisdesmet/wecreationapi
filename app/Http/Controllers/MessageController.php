@@ -88,4 +88,9 @@ class MessageController extends Controller
     {
         //
     }
+
+    public function seen(Request $request)
+    {
+        Message::where('recipient_id', $request->input('user'))->where('notification', 1)->update(['seen' => 1]);
+    }
 }

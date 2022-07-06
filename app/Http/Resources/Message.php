@@ -17,6 +17,7 @@ class Message extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
+            'seen' => $this->seen,
             'created_at' => $this->created_at,
             'notification' => $this->notification,
             'user' => new User($this->whenLoaded('user')),

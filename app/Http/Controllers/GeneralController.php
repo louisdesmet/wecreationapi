@@ -30,6 +30,7 @@ class GeneralController extends Controller
         $message->notification = 1;
         $message->recipient_id = $request->user;
         $message->message = "De project leider " . $request->leader . " heeft je aanvraag voor " . $request->eventSkill['hours'] . " uur " . $request->eventSkill['skill']['name'] . " goedgekeurd voor het event " . $request->eventName . ".";
+        $message->seen = 0;
         $message->save();
     }
 
@@ -144,6 +145,7 @@ class GeneralController extends Controller
         $message->notification = 1;
         $message->recipient_id = $request->user;
         $message->message = $request->liker['name'] . " vind je profiel leuk.";
+        $message->seen = 0;
         $message->save();
     }
 

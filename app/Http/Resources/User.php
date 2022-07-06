@@ -24,7 +24,7 @@ class User extends JsonResource
             'image' => $this->image,
             'email_verified_at' => $this->email_verified_at,
             'credits' => $this->credits,
-            'created_at' => $this->created_at,
+            'created_at' => date($this->created_at),
             'roles' => Role::collection($this->whenLoaded('roles')),
             'receivedLikes' => User::collection($this->whenLoaded('receivedLikes')),
             'givenLikes' => User::collection($this->whenLoaded('givenLikes')),

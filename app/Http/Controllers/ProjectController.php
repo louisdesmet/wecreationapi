@@ -44,6 +44,7 @@ class ProjectController extends Controller
         $project = new Project;
         $project->name = $request->input('name');
         $project->description = $request->input('desc');
+        $project->type = $request->input('type');
         $project->credits = 0;
         $project->leader_id = $request->input('leader');
         $project->picture = "noimage.jpg";
@@ -95,6 +96,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->name = $request->input('name');
         $project->description = $request->input('description');
+        $project->type = $request->input('type');
         $project->credits = $request->input('credits');
         $project->leader_id = $request->input('leader');
         $project->save();

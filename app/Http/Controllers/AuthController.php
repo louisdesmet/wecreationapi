@@ -65,21 +65,7 @@ class AuthController extends Controller
 
             $link = (App::environment('production')) ? ('https://wecreation.be/') : ('http://localhost:3000/') . 'password/reset/' . $tokenData->token . '/' . urlencode($request->email);
             
-            /*Mail::to($request->email)->send(new PasswordReset($link, $user));*/
-
-
-            $mailchimp = new \MailchimpMarketing\ApiClient();
-
-            $mailchimp->setConfig([
-                'apiKey' => '3ef99a4b5d0267f2f1b46ddcecbf7e81-us9',
-                'server' => 'us9'
-            ]);
-            Log::info( print_r($mailchimp->ping->get()));
-            /*return $response = $mailchimp->ping->get();*/
-
-
-            
-
+            Mail::to($request->email)->send(new PasswordReset($link, $user));
 
         }
     }

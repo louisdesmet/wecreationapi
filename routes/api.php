@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('messages/seen', 'MessageController@seen');
 
     Route::resource('/messages', 'MessageController');
+    Route::resource('/transfers', 'TransferController');
     Route::resource('/products', 'ProductController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');

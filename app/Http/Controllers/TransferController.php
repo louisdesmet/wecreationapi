@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Transfer;
 use App\Message;
-use App\Http\Resources\Message as MessageRes;
+use App\Http\Resources\Transfer as TransferRes;
+use Illuminate\Support\Facades\DB;
 
-class MessageController extends Controller
+class TransferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return MessageRes::collection(Message::with('user', 'recipient', 'group.event.project')->get());
+        return TransferRes::collection(Transfer::with('user')->get());
     }
 
     /**
@@ -25,7 +28,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -36,13 +39,30 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $message = new Message;
-        $message->message = $request->input('message');
-        $message->user_id = $request->input('user');
-        $message->recipient_id = $request->input('recipient');
-        $message->group_id = $request->input('group');
-        $message->seen = 0;
-        $message->save();
+        $amount = intval($request->input('amount'));
+        $user = User::find($request->input('user'));
+
+        if($user->credits >= $amount) {
+
+            $transfer = new Transfer;
+            $transfer->user_id = $request->input('user');
+            $transfer->amount = $amount;
+            $transfer->accepted = 0;
+            $transfer->buy = 0;
+            $transfer->save();
+            $user->credits -= $amount;
+            $user->save();
+
+            $message = new Message;
+            $message->notification = 1;
+            $message->recipient_id = $user->id;
+            $message->message = "Je vroeg aan om " . $request->input('amount') . " credits om te ruilen voor " . $request->input('amount') . " euro.";
+            $message->seen = 0;
+            $message->save();
+
+            return $transfer;
+        }
+     
     }
 
     /**
@@ -88,10 +108,5 @@ class MessageController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function seen(Request $request)
-    {
-        Message::where('recipient_id', $request->input('user'))->where('notification', 1)->update(['seen' => 1]);
     }
 }

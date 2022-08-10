@@ -43,12 +43,12 @@ class OrderController extends Controller
         $product = Product::find($request->input('product'));
         $user = User::find($request->input('user'));
 
-        if($product->amount > 0 && $user->credits >= $product->price) {
+        if(($product->amount > 0 || $request->input('business_type') === 'service') && $user->credits >= $product->price) {
 
             $order = new Order;
             $order->product_id = $request->input('product');
             $order->user_id = $request->input('user');
-            $order->save();    
+            $order->save();
             $product->amount -= 1;
             $product->save(); 
             $user->credits -= $product->price;
@@ -58,6 +58,7 @@ class OrderController extends Controller
             $message->notification = 1;
             $message->recipient_id = $request->input('business_user');
             $message->message =  $user->name . " wilt een " . $product->name . " kopen voor " . $product->price . " credits.";
+            $message->seen = 0;
             $message->save();
 
             return $order;

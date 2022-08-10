@@ -103,7 +103,7 @@ class UserController extends Controller
             $destinationPath = public_path('/users');
             $image->move($destinationPath, $name);
             $user->image = $name;
-        } else {
+        } else if(!$user->image) {
             $user->image = "noimage.jpg";
         }
         $user->save();

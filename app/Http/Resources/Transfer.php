@@ -18,6 +18,7 @@ class Transfer extends JsonResource
             'id' => $this->id,
             'amount' => $this->amount,
             'accepted' => $this->accepted,
+            'buy' => $this->buy,
             'created_at' => $this->created_at->toDateString(),
             'user' => new User($this->whenLoaded('user'))
         ];

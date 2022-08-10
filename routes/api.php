@@ -27,6 +27,7 @@ Route::post('reset_password_with_token', 'AuthController@resetPassword');
 Route::post('events/image', 'EventController@addimage');
 Route::resource('/events', 'EventController');
 Route::resource('/activities', 'ActivityController');
+Route::post('businesses/image', 'BusinessController@addimage');
 Route::resource('/businesses', 'BusinessController');
 
 Route::group(['middleware' => ['auth:api']], function () {

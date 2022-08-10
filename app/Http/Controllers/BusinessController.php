@@ -167,4 +167,24 @@ class BusinessController extends Controller
     {
         //
     }
+
+    public function addimage(Request $request)
+    {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
+        $business = Business::find($request->input('businessid'));
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/businesses');
+            $image->move($destinationPath, $name);
+            $business->image = $name;
+            $business->save();
+        }
+
+    }
 }

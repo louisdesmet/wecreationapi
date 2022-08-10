@@ -61,4 +61,24 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function addimage(Request $request)
+    {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
+        $product = Product::find($request->input('id'));
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/products');
+            $image->move($destinationPath, $name);
+            $product->picture = $name;
+            $product->save();
+        }
+
+    }
 }

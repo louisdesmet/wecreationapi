@@ -30,6 +30,7 @@ Route::resource('/activities', 'ActivityController');
 Route::post('businesses/image', 'BusinessController@addimage');
 Route::resource('/businesses', 'BusinessController');
 
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('/projects', 'ProjectController');
 
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::resource('/messages', 'MessageController');
     Route::resource('/transfers', 'TransferController');
+    Route::post('products/image', 'ProductController@addimage');
     Route::resource('/products', 'ProductController');
     Route::resource('/skills', 'SkillController');
     Route::resource('/orders', 'OrderController');

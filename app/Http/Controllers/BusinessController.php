@@ -152,6 +152,9 @@ class BusinessController extends Controller
                 $product->start_hour = $data['starthour'];
                 $product->end_hour = $data['endhour'];
             }  
+            if(!$product->picture) {
+                $product->picture = "noimage.jpg";
+            }
             $product->save();
         }
     }

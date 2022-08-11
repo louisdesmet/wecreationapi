@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/decline', 'GeneralController@decline');
     Route::post('/present', 'GeneralController@present');
     Route::post('/not-present', 'GeneralController@notPresent');
+    Route::post('/complete-event', 'GeneralController@completeEvent');
     Route::post('/trade', 'GeneralController@trade');
     Route::post('/verify', 'GeneralController@verify');
     Route::post('/verify-order', 'GeneralController@verifyOrder');

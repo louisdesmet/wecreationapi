@@ -25,6 +25,7 @@ class Event extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'image' => $this->image,
+            'completed_at' => $this->completed_at,
             'skills' => EventSkill::collection($this->whenLoaded('event_skill')),
             'users' => User::collection($this->whenLoaded('users')),
             'project' => new Project($this->whenLoaded('project')),

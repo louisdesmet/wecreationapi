@@ -60,6 +60,15 @@ class GeneralController extends Controller
 
     }
 
+    public function completeEvent(Request $request)
+    {
+        $event = Event::find($request->event);
+        $event->completed_at = date('d-m-y h:i:s');
+        $event->save();
+       
+
+    }
+
     public function notPresent(Request $request)
     {
         $eventUser = EventSkillUser::where('user_id', $request->user)->where('event_skill_id', $request->eventSkill)->delete();

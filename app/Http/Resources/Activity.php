@@ -25,6 +25,7 @@ class Activity extends JsonResource
             'lng' => $this->lng,
             'image' => $this->image,
             'ticketlink' => $this->ticketlink,
+            'user' => new User($this->whenLoaded('user')),
             'users' => User::collection($this->whenLoaded('users')),
             'liked_at' => $this->whenPivotLoaded('activity_user', function () {
                 return $this->pivot->created_at;

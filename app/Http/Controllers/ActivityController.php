@@ -15,7 +15,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return ActivityRes::collection(Activity::with("users")->get());
+        return ActivityRes::collection(Activity::with("users", "user")->get());
     }
 
     /**
@@ -96,12 +96,16 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $activity = Activity::find($id);
         $activity->name = $request->input('name');
+        $activity->description = $request->input('desc');
         $activity->location = $request->input('location');
         $activity->date = $request->input('date');
+        $activity->time = $request->input('time');
         $activity->lat = $request->input('lat');
         $activity->lng = $request->input('lng');
+        $activity->user_id = $request->input('user');
         $activity->save();
     }
 
@@ -114,5 +118,25 @@ class ActivityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addimage(Request $request)
+    {
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpg,png,jpeg',
+        ]);
+
+        $activity = Activity::find($request->input('activityid'));
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/activities');
+            $image->move($destinationPath, $name);
+            $activity->image = $name;
+            $activity->save();
+        }
+
     }
 }

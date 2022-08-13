@@ -30,12 +30,9 @@ Route::post('activities/image', 'ActivityController@addimage');
 Route::resource('/activities', 'ActivityController');
 Route::post('businesses/image', 'BusinessController@addimage');
 Route::resource('/businesses', 'BusinessController');
+Route::resource('/projects', 'ProjectController');
 
-
-Route::group(['middleware' => ['auth:api']], function () {
-    Route::resource('/projects', 'ProjectController');
-
-    Route::post('messages/seen', 'MessageController@seen');
+Route::post('messages/seen', 'MessageController@seen');
 
     Route::resource('/messages', 'MessageController');
     Route::resource('/transfers', 'TransferController');
@@ -62,4 +59,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/like-user', 'GeneralController@likeUser');
 
     Route::post('/users/editdata', 'UserController@editdata');
+
+Route::group(['middleware' => ['auth:api']], function () {
+    
+
+    
 });

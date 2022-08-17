@@ -31,11 +31,17 @@ class User extends JsonResource
             'activities' => Activity::collection($this->whenLoaded('activities')),
             'events' => Event::collection($this->whenLoaded('events')),
             'businesses' => Business::collection($this->whenLoaded('businesses')),
+            'event_skill_user_id' => $this->whenPivotLoaded('event_skill_user', function () {
+                return $this->pivot->id;
+            }),
             'accepted' => $this->whenPivotLoaded('event_skill_user', function () {
                 return $this->pivot->accepted;
             }),
             'present' => $this->whenPivotLoaded('event_skill_user', function () {
                 return $this->pivot->present;
+            }),
+            'present_at' => $this->whenPivotLoaded('event_skill_user', function () {
+                return $this->pivot->present_at;
             }),
             'liked_at' => $this->whenPivotLoaded('user_user', function () {
                 return $this->pivot->created_at;

@@ -9,7 +9,7 @@ class EventSkill extends Pivot
     protected $table = 'event_skill';
 
     public function users() {
-        return $this->belongsToMany(User::class, 'event_skill_user', 'event_skill_id', 'user_id')->withPivot('accepted', 'present');
+        return $this->belongsToMany(User::class, 'event_skill_user', 'event_skill_id', 'user_id')->withPivot('id', 'accepted', 'accepted_at', 'present', 'present_at');
     }
 
     public function skill() {

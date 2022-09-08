@@ -42,16 +42,19 @@ class ActivityController extends Controller
         ]);
 
         $activity = new Activity;
+        $activity->type = $request->input('activity') === "true" ? "activity" : "place";
         $activity->name = $request->input('name');
         $activity->description = $request->input('desc');
-        $activity->date = $request->input('date');
-        $activity->time = $request->input('time');
-        $activity->ticketlink = $request->input('ticketlink');
         $activity->location = $request->input('location');
         $activity->lat = $request->input('lat');
         $activity->lng = $request->input('lng');
         $activity->user_id = $request->input('user');
-        
+
+        if($request->input('activity') === "true") {
+            $activity->date = $request->input('date');
+            $activity->time = $request->input('time');
+            $activity->ticketlink = $request->input('ticketlink');
+        }
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
